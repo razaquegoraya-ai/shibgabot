@@ -1,6 +1,4 @@
 import { google } from 'googleapis';
-import fs from 'fs';
-import path from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -10,10 +8,8 @@ const SCOPES = [
   'https://www.googleapis.com/auth/drive.readonly',
 ];
 
-const serviceAccountPath = process.env.GOOGLE_SERVICE_ACCOUNT_JSON || 'service-account.json';
-const serviceAccount = JSON.parse(
-  fs.readFileSync(path.join(process.cwd(), serviceAccountPath), 'utf8')
-);
+// Load Google service account credentials from environment variable for Vercel
+const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON!);
 
 const auth = new google.auth.GoogleAuth({
   credentials: serviceAccount,
